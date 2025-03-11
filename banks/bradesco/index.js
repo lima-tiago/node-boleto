@@ -140,6 +140,7 @@ exports.parseEDIFile = function (fileContent) {
         boleto['valor_pago'] = formatters.removeTrailingZeros(line.substring(253, 266))
         boleto['juros_mora'] = formatters.removeTrailingZeros(line.substring(266, 279))
         boleto['outros_creditos'] = formatters.removeTrailingZeros(line.substring(279, 292))
+        boleto['raw_line'] = line
 
         parsedFile.boletos.push(boleto)
       }
