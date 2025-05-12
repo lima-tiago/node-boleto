@@ -26,7 +26,7 @@ exports.barcodeData = function (boleto) {
 
   var nossoNumero = carteira + formatters.addTrailingZeros(boleto['nosso_numero'], 11)
 
-  var barra = codigoBanco + numMoeda + fatorVencimento + valor + agencia + nossoNumero + codigoCedente + '0'
+  var barra = boleto['codigo_barras'] || codigoBanco + numMoeda + fatorVencimento + valor + agencia + nossoNumero + codigoCedente + '0'
 
   var dvBarra = this.dvBarra(barra)
   var lineData = barra.substring(0, 4) + dvBarra + barra.substring(4, barra.length)
