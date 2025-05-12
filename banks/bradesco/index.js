@@ -26,17 +26,38 @@ exports.barcodeData = function (boleto) {
 
   var nossoNumero = carteira + formatters.addTrailingZeros(boleto['nosso_numero'], 11)
 
-  console.log('node-boleto: boleto', boleto)
   var barra = codigoBanco + numMoeda + fatorVencimento + valor + agencia + nossoNumero + codigoCedente + '0'
-  console.log('node-boleto: barra', barra)
 
   var dvBarra = this.dvBarra(barra)
   var lineData = barra.substring(0, 4) + dvBarra + barra.substring(4, barra.length)
 
-  return lineData
+  return boleto['codigo_barras'] || lineData
 }
 
-exports.linhaDigitavel = function (barcodeData) {
+exports.linhaDigitavel = function (barcodeData, codigoBarras) {
+  if (codigoBarras) {
+    // 1. Campo
+    let campo1 = codigoBarras.substring(0, 10)
+    campo1 = campo1.substring(0, 5) + '.' + campo1.substring(5);
+
+    // 2. Campo - segunda parte do campo livre
+    let campo2 = codigoBarras.substring(10, 21);
+    campo2 = campo2.substring(0, 5) + '.' + campo2.substring(5);
+
+    // 3. Campo - terceira parte do campo livre
+    let campo3 = codigoBarras.substring(21, 32);
+    campo3 = campo3.substring(0, 5) + '.' + campo3.substring(5);
+
+    // 4. Campo - dígito verificador
+    let campo4 = codigoBarras.substring(32, 33);
+
+    // 5. Campo - fator vencimento + valor
+    let campo5 = codigoBarras.substring(33);
+
+    // Retorna os campos formatados separados por espaço
+    return `${campo1} ${campo2} ${campo3} ${campo4} ${campo5}`;
+  }
+
   // 01-03    -> Código do banco sem o digito
   // 04-04    -> Código da Moeda (9-Real)
   // 05-05    -> Dígito verificador do código de barras
