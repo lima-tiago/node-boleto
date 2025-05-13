@@ -55,9 +55,7 @@ exports.linhaDigitavel = function (barcodeData, codigoBarras) {
     let campo5 = codigoBarras.substring(33);
 
     // Retorna os campos formatados separados por espaço
-    console.log('node-boleto:', `${campo1} ${campo2} ${campo3} ${campo4} ${campo5}`);
-    return "23792.96003 25113.000001 02000.331104 9 10680000429692";
-  }
+    return `${campo1} ${campo2} ${campo3} ${campo4} ${campo5}`;
 
   // 01-03    -> Código do banco sem o digito
   // 04-04    -> Código da Moeda (9-Real)
