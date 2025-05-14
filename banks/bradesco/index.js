@@ -56,6 +56,7 @@ exports.linhaDigitavel = function (barcodeData, codigoBarras) {
 
     // Retorna os campos formatados separados por espaço
     return `${campo1} ${campo2} ${campo3} ${campo4} ${campo5}`;
+  }
 
   // 01-03    -> Código do banco sem o digito
   // 04-04    -> Código da Moeda (9-Real)
